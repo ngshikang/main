@@ -71,9 +71,4 @@ public class UiManagerTest {
         Assert.assertThrows(NullPointerException.class, () -> ui.start(null));
     }
 
-    @Test
-    public void checkAppStop() {
-        Assert.assertThrows(NullPointerException.class, () -> ui.stop());
-    }
-
 }
