@@ -65,6 +65,7 @@ The application should open into the following screen:
 image::Ui.png[width="790"]
 +
 
+
 === Centralised loading in of data `[coming in v2.0]`
 Users may be able to load in large amounts of addressees into their Pigeons addressbook files from v2.0 onwards.
 
