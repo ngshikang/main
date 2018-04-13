@@ -4,6 +4,11 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at http://gradle.org/docs/2.2.1/userguide/tutorial_java_projects.html
  */
+buildscript {
+    dependencies {
+        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
+    }
+}
 
 plugins {
     id 'java'
@@ -20,6 +25,33 @@ mainClassName = 'seedu.address.MainApp'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
+
+apply plugin: 'java'
+apply plugin: 'org.asciidoctor.convert'
+
+version = '1.0.0-SNAPSHOT'
+
+asciidoctorj {
+   version = '1.5.5'
+}
+
+asciidoctor {
+    backends 'pdf'
+    sourceDir 'docs'
+    outputDir "${buildDir}/docs"
+
+    attributes \
+        'build-gradle': file('build.gradle'),
+        'source-highlighter': 'coderay',
+        'toc': 'left',
+        'icons': 'font',
+        'setanchors': '',
+        'idprefix': '',
+        'idseparator': '-',
+        'docinfo1': '',
+        experimental: true,
+        sectlinks: true
+}
 
 repositories {
     mavenCentral()
@@ -163,21 +195,6 @@ task headless << {
 
 // Makes sure that headless properties are set before running tests
 test.mustRunAfter headless
-
-asciidoctor {
-    backends 'html5'
-    sourceDir 'docs'
-    outputDir "${buildDir}/docs"
-
-    attributes linkcss: true,
-               stylesheet: 'gh-pages.css',
-               'source-highlighter': 'coderay',
-               icons: 'font',
-               experimental: true,
-               sectlinks: true,
-               idprefix: '',  // for compatibility with GitHub preview
-               idseparator: '-'
-}
 
 /*
  * Copies stylesheets into the directory containing generated HTML files as
